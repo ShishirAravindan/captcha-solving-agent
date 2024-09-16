@@ -1,0 +1,12 @@
+{
+    "URL": "https://iam.uiowa.edu/whitepages/search",
+    "SELECTORS": {
+        "iframe": "/html/body/div/div[2]/iframe",
+        "captcha_instructions": "strong:nth-child(1)",
+        "captcha_image_src": "img.rc-image-tile-33",
+        "image_grid": "div.rc-image-tile-wrapper",
+        "verify_button": "#recaptcha-verify-button"
+    },
+    "NAMES": ["THOMAS S GRUCA", "JEFFREY C GIESE", "JULIA GARLICK",
+    "STEPHANIE C GANTZ", "THOMAS P GALLANIS"]
+}
