@@ -52,7 +52,42 @@ pip install -r requirements.txt
 brew install geckodriver
 ```
 
-## Usage
+## Quick Demo (No Browser Required)
+
+A standalone demo script lets you test the core pipeline — image splitting and Ollama classification — without Selenium or a live CAPTCHA page.
+
+```bash
+# Offline mode — generates a synthetic grid, splits it, skips Ollama.
+# Good for verifying the setup works before installing Ollama.
+python demo.py --offline
+
+# Live mode — generates a synthetic grid and classifies each tile via Ollama.
+# Requires: ollama serve (running) + ollama pull llava (completed)
+python demo.py
+
+# Use your own CAPTCHA grid image:
+python demo.py path/to/captcha_grid.jpg
+```
+
+Example output (live mode):
+
+```
+  [1/3] Generated synthetic grid image -> temp/demo_grid.png
+  [2/3] Split into 9 tiles (3x3)
+  [3/3] Classifying tiles via Ollama (llava)...
+         tile 0: raw="0" -> False
+         tile 1: raw="1" -> True
+         ...
+
+  Predictions
+  -------------------------
+  | False  | True   | False  |
+  | False  | True   | False  |
+  | False  | True   | False  |
+  -------------------------
+```
+
+## Full Agent Usage
 
 Make sure Ollama is running (`ollama serve`) with the LLaVA model pulled, then:
 
@@ -90,6 +125,7 @@ config = {
 
 ```
 ├── README.md
+├── demo.py              # Standalone demo (no browser needed)
 ├── config.json          # Target URL, selectors, and search names
 ├── requirements.txt     # Python dependencies
 ├── test_log.ini         # Logging configuration
