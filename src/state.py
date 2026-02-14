@@ -1,4 +1,10 @@
-#!.finPayVenv/bin/python3
+"""
+state.py — State file management for batch processing.
+
+Tracks which names have been processed by persisting results to a JSON
+state file. Supports chunked retrieval of unprocessed entries and various
+name-normalisation strategies for fuzzy matching.
+"""
 
 import pandas as pd
 import json
@@ -167,23 +173,7 @@ def checkStateStatus(state_file):
             null_count += 1
     print(f"Number of entries filled: {null_count}")
     print(f"Total entries: {len(state_data)}")
-#make_initial_state_file('2_salaries/UoI/uoi_2023.xlsx', '2_salaries/UoI/state_2023.json')
-#make_initial_state_file('../IOWAsalary1993-2023upd.xlsx', '2_salariesUoIstate_2023.json')
-# chunk = get_fresh_chunk('data/2_salariesUoIstate_2023.json', 5)
-# print(chunk)
 if __name__ == '__main__':
-    # excel_file_path = '../../dentistryIowa.xlsx'
-    # df = pd.read_excel(excel_file_path)
-    # print(len(df['Name'].tolist()))
-    # df['Name'] = df['Name'].apply(normalize_name)
-
-
-    # # Step 2: Convert the DataFrame to a dictionary
-    # # Assuming the columns are "Name" and "Department"
-    # new_data = pd.Series(df.Department.values, index=df.Name).to_dict()
-    # state_file_path = '../data/2_salariesUoIstate_2023.json'
-    # update_state_file(state_file_path, new_data)
-
-    state_file_path = '../data/2_salariesUoIstate_2023.json'
+    import sys
+    state_file_path = sys.argv[1] if len(sys.argv) > 1 else '../data/2_salariesUoIstate_2023.json'
     checkStateStatus(state_file_path)
-    # print(omit_last_letter("SUKALSKI,JENNIFER M"))

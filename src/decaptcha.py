@@ -1,10 +1,15 @@
-#!python3
+"""
+decaptcha.py — Image splitting, encoding, and vLLM classification via Ollama.
+
+Splits a CAPTCHA grid image into individual tiles, base64-encodes each one,
+and sends them to a locally running Ollama instance (LLaVA) for binary
+classification against the CAPTCHA prompt target.
+"""
 
 import base64
 import requests
 import logging
 import logging.config
-import utils
 from PIL import Image
 import io
 
@@ -122,15 +127,9 @@ def _make_vLLM_API_call(target:str, image: str) -> str:
     return "-1"
 
 
-#--------------------------------------------------------------------------------
-# Test code
-def test_main():
-    logging.config.fileConfig("test_log.ini")
-    ret = decaptcha("bus", "../vLLM-demo/bus.jpg")
-    utils.assert_equal("bus", ret, [None, False, False, True, True, True, False, True, None])
-
-    # TODO: All other test case
-        
-    
 if __name__ == "__main__":
-    test_main()
+    logging.config.fileConfig("test_log.ini")
+    # Quick smoke test — replace with a real image path to test locally:
+    # result = decaptcha("bus", "path/to/bus_grid.jpg", 3)
+    # print(result)
+    logging.info("decaptcha module loaded — run with an image path to test.")

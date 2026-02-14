@@ -1,4 +1,10 @@
-#!python3 
+"""
+main.py — Entry point for the CAPTCHA-solving agent.
+
+Orchestrates the scraping workflow: reads config, chunks the work,
+spawns browser processes, fills forms, and delegates CAPTCHA solving
+to agent.py when challenges appear.
+"""
 
 import utils, agent
 import logging, logging.config
@@ -75,7 +81,6 @@ def main():
     NUM_PROCESSES = 2
     chunks = state.get_fresh_chunk(STATE_FILE_PATH, 5*NUM_PROCESSES)
     chunks = get_chunk_slices(chunks, 5)
-    # print(f"{chunks}, {type(chunks)}")
     for i in range(NUM_PROCESSES):
         p = Process(target=single_process, args=(config_file, dict(chunks[i]), ))
         p.start()
