@@ -1,4 +1,10 @@
-#!python3
+"""
+agent.py — CAPTCHA detection and solving workflow.
+
+Locates the reCAPTCHA iframe within a Selenium-driven browser session,
+extracts the challenge prompt and image grid, delegates classification
+to decaptcha.py, and clicks the appropriate tiles to submit the solution.
+"""
 
 import utils
 from selenium.webdriver.common.by import By
@@ -10,7 +16,6 @@ import logging
 import logging.config
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from decaptcha import decaptcha
-import time
 
 config = {
     "iframe": "/html/body/div/div[2]/iframe",
@@ -132,9 +137,7 @@ def _complete_form(driver: WebDriver) -> WebDriver:
         print(f"Error: Could not click the verify button. {e}")
     return driver
 
-#--------------------------------------------------------------------------------
-# Test code
-def test_main():
+if __name__ == "__main__":
     logging.config.fileConfig("test_log.ini")
     URL = "https://iam.uiowa.edu/whitepages/search"
     name = "THOMAS S GRUCA"
@@ -143,10 +146,4 @@ def test_main():
     driver = utils.fill_form(driver, name)
     logging.info("FORM FILLED")
     captcha_workflow(driver)
-    logging.info("CAPTCHA reached")
-
-    # TODO: All other test case
-        
-    
-if __name__ == "__main__":
-    test_main()
+    logging.info("CAPTCHA workflow complete")

@@ -1,15 +1,18 @@
-#!python3
+"""
+utils.py — Browser helpers, form filling, and image download utilities.
+
+Provides Selenium/Firefox setup, page interaction helpers, and a function
+to download CAPTCHA images locally for processing.
+"""
 
 from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 import random
-import json
 import time
 import requests
 from PIL import Image
